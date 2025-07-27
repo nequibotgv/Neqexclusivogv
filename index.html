@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nequi</title>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --espacio-inferior: 1cm;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Manrope', sans-serif;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      background-color: #1a0020;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .clave-dinamica {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background-color: #3a2c42;
+      border-radius: 12px;
+      padding: 8px 14px;
+      display: flex;
+      align-items: center;
+      font-size: 13px;
+      color: #fff;
+    }
+
+    .clave-dinamica::before {
+      content: '⭘';
+      color: #ff007a;
+      font-size: 20px;
+      margin-right: 8px;
+    }
+
+    .clave-dinamica span {
+      font-weight: bold;
+      font-size: 16px;
+      margin-left: 6px;
+      display: inline-block;
+      transition: transform 0.5s ease, opacity 0.5s ease;
+    }
+
+    .rotate {
+      transform: rotateX(360deg);
+      opacity: 0.7;
+    }
+
+    .contenido {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 60px;
+      font-weight: bold;
+      text-align: center;
+      color: #f2eaff;
+    }
+
+    .logo::before {
+      content: '.';
+      color: #ff007a;
+      margin-right: 4px;
+    }
+
+    .formulario-wrapper {
+      position: absolute;
+      bottom: var(--espacio-inferior);
+      width: 100%;
+      padding: 0 20px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .formulario {
+      width: 100%;
+      max-width: 350px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .input-container {
+      background-color: #3a2c42;
+      border-radius: 10px;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      width: 100%;
+      font-size: 16px;
+      color: #fff;
+      margin-bottom: 20px;
+    }
+
+    .input-container span {
+      color: #aaa;
+      margin-right: 10px;
+    }
+
+    input[type="text"] {
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #fff;
+      font-size: 16px;
+      width: 100%;
+      letter-spacing: 1px;
+    }
+
+    .button-row {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      gap: 10px;
+    }
+
+    .button {
+      flex: 1;
+      background-color: #ff007a;
+      border: none;
+      padding: 14px 0;
+      border-radius: 10px;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .money-button {
+      width: 60px;
+      background-color: #ff007a;
+      border: none;
+      border-radius: 10px;
+      color: white;
+      font-size: 22px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 5px 10px rgba(255, 0, 122, 0.5);
+    }
+
+    .footer {
+      font-size: 13px;
+      color: #aaa;
+      position: absolute;
+      bottom: 10px;
+      text-align: center;
+    }
+
+    .footer::after {
+      content: ' ⓔ';
+      font-size: 16px;
+      margin-left: 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="clave-dinamica">
+    Clave dinámica <span id="clave">917239</span>
+  </div>
+
+  <div class="contenido">
+    <div class="logo">Nequi</div>
+  </div>
+
+  <div class="formulario-wrapper">
+    <form class="formulario" onsubmit="handleLogin(event)">
+      <div class="input-container">
+        <span>+57</span>
+        <input type="text" id="telefono" placeholder="Ingresa tu número" maxlength="13" required>
+      </div>
+      <div class="button-row">
+        <button type="submit" class="button">Entra</button>
+        <button type="button" class="money-button">$</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="footer">by</div>
+
+  <script>
+    function handleLogin(event) {
+      event.preventDefault();
+      const telefono = document.getElementById("telefono").value.replace(/\s+/g, '');
+      if (telefono === "3209722025") {
+        window.location.href = "https://nequibotgv.github.io/Clave.com/";
+      } else {
+        alert("Número incorrecto.");
+      }
+    }
+
+    function generarClave() {
+      return Math.floor(100000 + Math.random() * 900000).toString();
+    }
+
+    const claveSpan = document.getElementById("clave");
+
+    setInterval(() => {
+      claveSpan.classList.add("rotate");
+      setTimeout(() => {
+        claveSpan.textContent = generarClave();
+        claveSpan.classList.remove("rotate");
+      }, 250);
+    }, 3000);
+  </script>
+</body>
+</html>
+
